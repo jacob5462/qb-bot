@@ -1,0 +1,33 @@
+Carrier
+
+```lua
+local Players = game:GetService("Players")
+local Teams = game:GetService("Teams")
+local player = Players.LocalPlayer
+
+local function daddyFunction(player1, player2)
+    local team1 = player1.Team
+    local team2 = player2.Team
+    return team1 ~= team2
+end
+
+local function moveToFootball()
+    for _, v in pairs(Players:GetPlayers()) do
+        if v ~= player and daddyFunction(player, v) then
+            local char = v.Character
+
+            if char and char:FindFirstChild("Football") then
+                local football = char.Football
+                local walkPart = football.Handle
+
+                local humanoid = player.Character and player.Character.Humanoid
+                if humanoid then
+                    humanoid:MoveTo(walkPart.Position)
+                end
+            end
+        end
+    end
+end
+
+game:GetService("RunService").Heartbeat:Connect(moveToFootball)
+```
